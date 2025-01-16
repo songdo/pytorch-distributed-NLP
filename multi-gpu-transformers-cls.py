@@ -2,7 +2,6 @@ import json
 import time
 import random
 import torch
-import deepspeed
 import torch.nn as nn
 import numpy as np
 import torch.distributed as dist
@@ -97,7 +96,7 @@ def compute_metrics(eval_pred):
 
 
 class Args:
-    model_path = "model_hub/chinese-bert-wwm-ext"
+    model_path = "hfl/chinese-bert-wwm-ext"
     ckpt_path = "output/transformers/"
     max_seq_len = 128
     ratio = 0.92
@@ -218,7 +217,7 @@ def test():
     test_loader = dev_loader
 
     config = BertConfig.from_pretrained(args.model_path, num_labels=6)
-    model = BertForSequenceClassification.from_pretrained(args.ckpt_path + "/checkpoint-100", config=config)
+    model = BertForSequenceClassification.from_pretrained(args.ckpt_path + "/checkpoint-42", config=config)
     model.cuda()
 
     labels = list(label2id.keys())
